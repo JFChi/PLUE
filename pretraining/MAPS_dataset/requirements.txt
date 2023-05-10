@@ -1,0 +1,6 @@
+beautifulsoup4==4.11.1
+html2text==2020.1.16
+Markdown==3.4.1
+newspaper3k==0.2.8
+PyPDF2==2.10.0
+tqdm==4.49.0

@@ -1,12 +1,12 @@
 <div align="center">
 
-<h1>PLUE: Language Understanding Evaluation Benchmark for Privacy Policies in English</h1>
+<h1>Privacy Policies Language Understanding Evaluation</h1>
 
 This repository contains code for downloading data and implementations of baseline systems for PLUE.
 
 <p align="center">
   <a href="#setup">Setup</a> •
-  <a href="#build-a-baseline-system">Build a baseline system</a> •
+  <a href="#Usage">Usage</a> •
   <a href="#license">License</a> • 
   <a href="#citation">Citation</a>
 </p>
@@ -15,44 +15,57 @@ This repository contains code for downloading data and implementations of baseli
 
 ## Setup
 
-Setting up a conda environment is recommended to run experiments. We assume [anaconda](https://www.anaconda.com/) is
-installed. The additional requirements noted in requirements.txt can be installed by running
-the following script:
+### Downloading PLUE Datasets 
 
-```
-bash install_env.sh
-```
+We have already provided all PLUE datasets and the correponding preprocessing scripts in the [data folder](https://github.com/JFChi/PLUE/tree/main/data). Except PolicyIE, we have also uploaded the all pre-processed datasets. 
 
-The next step is to download the data. Run the following command to download the datasets.
-
+To pre-process policyIE, please run
 ```
-bash data/download.sh
+cd data/policyie
+bash run.sh 
 ```
 
-## Build a baseline system
-
-### OPP-115, APP-350  (Sentence Classification)
-
-``` 
-bash scripts/run.sh [MODEL] [opp-115,app-350]
+If you want to checkout how we preprocess PrivacyQA, PIExtract, APP-350, and OPP-115, please run
+```
+cd data
+bash setup.sh
 ```
 
-### PolicyQA, PrivacyQA (Question Answering)
+### Downloading Pre-training Corpus
 
-``` 
-bash scripts/run.sh [MODEL] [policyqa,privacyqa]
+To download our pre-training corpus, please run
+```
+cd pretraining/data
+bash download.sh 
 ```
 
-### PIExtract (Named Entity Recognition)
+## Usage
 
-``` 
-bash scripts/run.sh [MODEL] piextract
+### Pre-training
+
+In each pre-trained model folder, please download all the required dependencies
+```
+pip install -r requirements.txt
 ```
 
-### PolicyIE (Intent Detection and Slot Filling)
+Note that the dependencies are associated with each pre-trained models. After all dependencies are properly installed, please run
 
-``` 
-bash scripts/run.sh [MODEL] policyie
+```
+bash train.sh
+```
+
+### Fine-tuning
+
+All fine-tuning tasks share the same environment
+```
+cd finetuning
+pip install -r requirements.txt
+```
+
+for each task, please run the run.sh in the corresponding folder. For example, if we want to run APP-350 with pp-roberta, we run
+```
+cd finetuning/classification/app350/
+bash run.sh 0 policy_roberta # 0 indicate the gpu_id
 ```
 
 ## License
@@ -63,11 +76,11 @@ released model checkpoints as well.
 ## Citation
 
 ```
-@article{chi2022plue,
-  title={PLUE: Language Understanding Evaluation Benchmark for Privacy Policies in English},
-  author={Chi, Jianfeng and Ahmad, Wasi Uddin and Tian, Yuan and Chang, Kai-Wei},
-  journal={arXiv preprint arXiv:2212.10011},
-  year={2022}
+@inproceedings{chi2023plue,
+  author = {Chi, Jianfeng and Ahmad, Wasi Uddin and Tian, Yuan and Chang, Kai-Wei},
+  title = {PLUE: Language Understanding Evaluation Benchmark for Privacy Policies in English},
+  booktitle = {ACL (short)},
+  year = {2023}
 }
 ```
 
